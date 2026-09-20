@@ -1,4 +1,4 @@
-# ⚡ DevPulse
+# DevPulse
 
 <div align="center">
 
@@ -20,66 +20,66 @@
 
 ---
 
-## 📌 Overview
+## Overview
 
 **DevPulse** is a dedicated career development and consistency execution platform designed for students, aspiring software engineers, and developers.
 
 Instead of juggling fragmented spreadsheets, notes, to-do lists, and separate bookmarking tools, **DevPulse** centralizes your entire developer journey:
-- 🎯 **Goal Setting & Milestone Tracking**
-- 🤖 **AI-Generated Personalized Roadmaps** (Gemini AI)
-- 💻 **DSA Problem Solving & Pattern Analytics**
-- 🚀 **Software Project Velocity & Ship Checklists**
-- 🏆 **Hackathon Deadline Countdown & Team Deliverables**
-- 🌐 **Open Source PR & Contribution Logs**
-- ✍️ **Daily Technical Reflection Journals**
-- 🧠 **Automated AI Weekly Retrospectives**
-- 🔔 **Intelligent Deadline & Streak Reminders**
+- **Goal Setting & Milestone Tracking**
+- **AI-Generated Personalized Roadmaps** (Gemini AI)
+- **DSA Problem Solving & Pattern Analytics**
+- **Software Project Velocity & Ship Checklists**
+- **Hackathon Deadline Countdown & Team Deliverables**
+- **Open Source PR & Contribution Logs**
+- **Daily Technical Reflection Journals**
+- **Automated AI Weekly Retrospectives**
+- **Intelligent Deadline & Streak Reminders**
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
-### 1. 📊 Consistency & Career Readiness Dashboard
+### 1.  Consistency & Career Readiness Dashboard
 - **Gamified Momentum**: Real-time streak tracking, XP level progression, and dynamic Career Readiness Score (0–100).
 - **Interactive Visualizations**: 14-day activity consistency heatmap, DSA difficulty distribution donut chart, and topic pattern breakdown powered by Recharts.
 - **Overdue Alert Banner**: Automatic warnings for approaching submission deadlines and neglected milestones.
 
-### 2. 🎯 Goal & Milestone Management
+### 2.  Goal & Milestone Management
 - Categorize goals into **Skills**, **Projects**, **DSA**, and **Career**.
 - Interactive progress sliders with instant progress synchronization and milestone celebrations (confetti particle effects).
 - Priority filters (**Urgent**, **High**, **Medium**, **Low**) with target completion dates.
 
-### 3. 🤖 AI Learning Roadmaps (Powered by Google Gemini)
+### 3.  AI Learning Roadmaps (Powered by Google Gemini)
 - Dynamically generate custom 4, 6, or 8-week technical curriculums based on your target career track (**Software Developer**, **Full Stack**, **Backend**, **Frontend**, **AI/ML**, **DevOps**, **Mobile**, or **Cybersecurity**).
 - Week-by-week actionable checklists with curated documentation, video tutorials, and practice exercises.
 - Real-time progress calculation as tasks are completed.
 
-### 4. 💻 DSA Tracker & Problem Bank
+### 4.  DSA Tracker & Problem Bank
 - Log daily problem-solving sessions from **LeetCode**, **Codeforces**, **HackerRank**, **GeeksforGeeks**, and **NeetCode**.
 - Categorize by algorithm patterns (*Sliding Window, Dynamic Programming, Two Pointers, Trees, Graphs, etc.*).
 - Search and filter by difficulty, topic, platform, or personal solution notes.
 
-### 5. 🚀 Project Tracking & Ship Velocity
+### 5.  Project Tracking & Ship Velocity
 - Prevent half-finished projects by breaking builds into concrete deliverables.
 - Track GitHub repositories, live demo deployments, and tech stack tags.
 - Milestone checklists with optimistic UI state updates.
 
-### 6. 🏆 Hackathons & Deadlines Engine
+### 6.  Hackathons & Deadlines Engine
 - Track national and international competitions (*Smart India Hackathon, ETHGlobal, Devpost, MLH*).
 - Real-time countdowns for registration cutoffs and final round project submissions.
 - Team notes, prize track goals, and stage deliverable checklists.
 
-### 7. 🌐 Open Source Contribution Hub
+### 7.  Open Source Contribution Hub
 - Log Pull Requests, issues, and code reviews across open-source repositories (*Next.js, React, Prisma, Tailwind CSS*).
 - Track merged vs. open status and repository diversity.
 
-### 8. ✍️ Daily Reflection Journal & 🧠 AI Weekly Reviews
+### 8. Daily Reflection Journal & 🧠 AI Weekly Reviews
 - **Daily Reflection**: Document daily learnings, technical challenges, tomorrow's plan, and mood/energy level.
 - **AI Weekly Retrospectives**: Gemini AI analyzes your 7-day logs across DSA, projects, and reflections to deliver personalized mentor recommendations and weekly execution scores.
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 | Layer | Technology |
 | :--- | :--- |
@@ -94,7 +94,7 @@ Instead of juggling fragmented spreadsheets, notes, to-do lists, and separate bo
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 Follow these steps to run DevPulse locally on your machine:
 
@@ -152,7 +152,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🔑 Demo Account Credentials
+## Demo Account Credentials
 
 For instant demonstration and feature evaluation:
 - **Email**: `demo@devpulse.com`
@@ -163,7 +163,7 @@ For instant demonstration and feature evaluation:
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 devpulse/
@@ -207,7 +207,7 @@ devpulse/
 
 ---
 
-## ⚡ Performance & Rendering Optimizations
+## Performance & Rendering Optimizations
 
 - **Instant Perceived Speed**: Zero Cumulative Layout Shift (CLS = 0) with custom hardware-accelerated shimmer skeleton loaders.
 - **Indexed Queries**: Composite indexes on `userId`, `status`, `solvedAt`, and foreign keys ensure sub-10ms query execution.
@@ -215,7 +215,7 @@ devpulse/
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! If you'd like to improve DevPulse:
 1. Fork the repository
@@ -226,7 +226,7 @@ Contributions are welcome! If you'd like to improve DevPulse:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
