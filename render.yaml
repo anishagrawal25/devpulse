@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: devpulse
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: NEXTAUTH_SECRET
+        generateValue: true
+      - key: NEXTAUTH_URL
+        sync: false
+      - key: DATABASE_URL
+        value: file:/app/data/dev.db
+      - key: GEMINI_API_KEY
+        sync: false
+    disk:
+      name: devpulse-data
+      mountPath: /app/data
+      sizeGB: 1
