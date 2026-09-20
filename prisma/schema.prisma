@@ -1,0 +1,259 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  passwordHash  String?
+  avatar        String?
+  role          String    @default("USER") // USER, ADMIN
+  careerGoal    String    @default("Full Stack Developer")
+  careerLevel   String    @default("Beginner") // Beginner, Intermediate, Advanced
+  targetTimeline String   @default("6 Months")
+  streakCount   Int       @default(0)
+  longestStreak Int       @default(0)
+  totalXp       Int       @default(0)
+  lastActiveAt  DateTime? @default(now())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  goals           Goal[]
+  projects        Project[]
+  dsaEntries      DsaEntry[]
+  openSourceLogs  OpenSourceEntry[]
+  hackathons      Hackathon[]
+  reminders       Reminder[]
+  activityLogs    ActivityLog[]
+  journals        ReflectionJournal[]
+  weeklyReviews   WeeklyReview[]
+  roadmaps        Roadmap[]
+}
+
+model CareerGoal {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  slug         String   @unique
+  description  String
+  defaultSkills String  // Comma-separated or JSON string
+  icon         String   @default("Code")
+  createdAt    DateTime @default(now())
+}
+
+model Goal {
+  id          String    @id @default(cuid())
+  userId      String
+  title       String
+  description String?
+  category    String    @default("Skill") // Skill, Project, DSA, Career, Other
+  targetDate  DateTime?
+  progress    Int       @default(0) // 0 to 100
+  status      String    @default("IN_PROGRESS") // NOT_STARTED, IN_PROGRESS, COMPLETED, ON_HOLD
+  priority    String    @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, status])
+  @@index([category])
+}
+
+model Project {
+  id          String      @id @default(cuid())
+  userId      String
+  title       String
+  description String?
+  repoUrl     String?
+  liveUrl     String?
+  techStack   String?     // Comma separated tags e.g. "Next.js, TypeScript, PostgreSQL"
+  status      String      @default("IN_PROGRESS") // PLANNING, IN_PROGRESS, COMPLETED, ARCHIVED
+  progress    Int         @default(0) // 0 to 100
+  dueDate     DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  milestones Milestone[]
+
+  @@index([userId])
+  @@index([userId, status])
+}
+
+model Milestone {
+  id          String     @id @default(cuid())
+  projectId   String?
+  hackathonId String?
+  title       String
+  description String?
+  dueDate     DateTime?
+  isCompleted Boolean    @default(false)
+  completedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  project   Project?   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  hackathon Hackathon? @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([hackathonId])
+}
+
+model DsaEntry {
+  id               String   @id @default(cuid())
+  userId           String
+  problemTitle     String
+  platform         String   @default("LeetCode") // LeetCode, Codeforces, HackerRank, GeeksforGeeks, NeetCode
+  difficulty       String   @default("Medium") // Easy, Medium, Hard
+  topic            String   @default("Arrays") // Arrays, Strings, DP, Trees, Graphs, etc.
+  timeSpentMinutes Int      @default(30)
+  notes            String?
+  problemUrl       String?
+  solutionUrl      String?
+  solvedAt         DateTime @default(now())
+  createdAt        DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, solvedAt])
+  @@index([topic])
+  @@index([difficulty])
+}
+
+model OpenSourceEntry {
+  id               String    @id @default(cuid())
+  userId           String
+  repoName         String    // e.g. "facebook/react" or "vercel/next.js"
+  prTitle          String
+  prUrl            String?
+  issueUrl         String?
+  status           String    @default("MERGED") // OPEN, MERGED, CLOSED, DRAFT
+  contributionType String    @default("Pull Request") // Pull Request, Issue, Documentation, Code Review
+  description      String?
+  mergedAt         DateTime?
+  createdAt        DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, status])
+}
+
+model Hackathon {
+  id                 String      @id @default(cuid())
+  userId             String
+  name               String
+  websiteUrl         String?
+  regDeadline        DateTime?
+  submissionDeadline DateTime?
+  teamName           String?
+  status             String      @default("REGISTERED") // INTERESTED, REGISTERED, BUILDING, SUBMITTED, WON, COMPLETED
+  prizeNotes         String?
+  projectSummary     String?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  milestones Milestone[]
+
+  @@index([userId])
+  @@index([userId, status])
+  @@index([submissionDeadline])
+}
+
+model Reminder {
+  id          String    @id @default(cuid())
+  userId      String
+  title       String
+  message     String
+  type        String    @default("DEADLINE") // DEADLINE, MILESTONE, DSA, GOAL, SYSTEM
+  dueDate     DateTime?
+  isRead      Boolean   @default(false)
+  isDismissed Boolean   @default(false)
+  entityType  String?   // "PROJECT", "HACKATHON", "GOAL", "DSA"
+  entityId    String?
+  createdAt   DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, isRead])
+  @@index([userId, isDismissed])
+}
+
+model ActivityLog {
+  id          String   @id @default(cuid())
+  userId      String
+  type        String   // "DSA_SOLVED", "GOAL_COMPLETED", "PROJECT_MILESTONE", "PR_MERGED", "JOURNAL_SAVED"
+  description String
+  metadata    String?  // JSON metadata
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, createdAt])
+}
+
+model ReflectionJournal {
+  id                String   @id @default(cuid())
+  userId            String
+  title             String?
+  learnedContent    String   // What they learned
+  challengesContent String?  // Challenges faced / blockers
+  nextPlanContent   String?  // Plan for tomorrow / next week
+  mood              String   @default("GREAT") // PRODUCTIVE, GREAT, NEUTRAL, TIRED, STRUGGLING
+  tags              String?  // Comma separated tags
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, createdAt])
+}
+
+model WeeklyReview {
+  id                  String   @id @default(cuid())
+  userId              String
+  startDate           DateTime
+  endDate             DateTime
+  dsaCount            Int      @default(0)
+  projectsProgress    String?  // JSON or summary string
+  milestonesCompleted Int      @default(0)
+  aiSummary           String   // Gemini generated summary
+  aiRecommendations   String   // Gemini generated bullet points
+  createdAt           DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, startDate])
+}
+
+model Roadmap {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  careerGoal  String
+  targetWeeks Int      @default(4)
+  contentJson String   // Structured JSON array of weeks, topics, tasks, resources
+  progress    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
