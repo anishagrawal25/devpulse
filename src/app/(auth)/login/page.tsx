@@ -50,7 +50,7 @@ export default function LoginPage() {
         toast.error(res.error);
       } else {
         toast.success("Welcome back to DevPulse!");
-        router.push("/");
+        router.push("/dashboard");
         router.refresh();
       }
     } catch {
@@ -73,7 +73,7 @@ export default function LoginPage() {
         toast.error("Demo account login failed. Please ensure DB is seeded.");
       } else {
         toast.success("Welcome to DevPulse Showcase Demo! 🚀");
-        router.push("/");
+        router.push("/dashboard");
         router.refresh();
       }
     } catch {

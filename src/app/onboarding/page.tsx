@@ -61,7 +61,7 @@ export default function OnboardingPage() {
           careerLevel: selectedLevel,
         });
         toast.success("Profile setup complete! Welcome to DevPulse.");
-        router.push("/");
+        router.push("/dashboard");
       } else {
         toast.error("Failed to save onboarding settings");
       }

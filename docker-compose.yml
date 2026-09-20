@@ -1,35 +1,25 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: devpulse-db
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: devpulse
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: unless-stopped
-
   app:
     build:
       context: .
       dockerfile: Dockerfile
+    image: devpulse:latest
     container_name: devpulse-app
-    environment:
-      DATABASE_URL: "postgresql://postgres:password@postgres:5432/devpulse?schema=public"
-      NEXTAUTH_URL: "http://localhost:3000"
-      NEXTAUTH_SECRET: "devpulse-super-secret-jwt-key-32-chars-minimum-for-security"
-      GEMINI_API_KEY: "${GEMINI_API_KEY}"
-      NODE_ENV: "production"
+    restart: unless-stopped
     ports:
       - "3000:3000"
-    depends_on:
-      - postgres
-    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=file:/app/data/dev.db
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=devpulse-super-secret-jwt-key-32-chars-minimum-for-security
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    volumes:
+      - devpulse-data:/app/data
 
 volumes:
-  postgres_data:
+  devpulse-data:
+    driver: local

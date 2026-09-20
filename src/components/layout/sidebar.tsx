@@ -29,7 +29,7 @@ import { cn, calculateLevel } from "@/lib/utils";
 import { Badge } from "@/components/ui/core";
 
 const navItems = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
+  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Goals", href: "/goals", icon: Target },
   { name: "AI Roadmaps", href: "/roadmaps", icon: Map, badge: "AI" },
   { name: "Projects", href: "/projects", icon: FolderKanban },
@@ -78,7 +78,7 @@ export function Sidebar({
         {/* Brand Logo Header */}
         <div className="flex h-16 items-center justify-between px-6 border-b border-border/80">
           <Link
-            href="/"
+            href="/dashboard"
             className="flex items-center gap-2.5 font-bold text-lg tracking-tight group"
             onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
           >
