@@ -15,10 +15,6 @@ services:
       - key: NEXTAUTH_URL
         sync: false
       - key: DATABASE_URL
-        value: file:/app/data/dev.db
+        value: file:./dev.db
       - key: GEMINI_API_KEY
         sync: false
-    disk:
-      name: devpulse-data
-      mountPath: /app/data
-      sizeGB: 1
