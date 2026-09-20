@@ -18,6 +18,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV production
 ENV DATABASE_URL "file:./dev.db"
 
+RUN mkdir -p /app/public
 RUN npx prisma generate
 RUN npx prisma db push --accept-data-loss
 RUN npm run build
@@ -37,7 +38,7 @@ RUN groupadd --system --gid 1001 nodejs
 RUN useradd --system --uid 1001 nextjs
 
 # Copy build artifacts
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/dev.db* ./
 
